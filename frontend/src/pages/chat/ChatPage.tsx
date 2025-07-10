@@ -93,7 +93,7 @@ export default ChatPage;
 const NoConversationPlaceholder = () => (
   <div className="flex flex-col items-center justify-center h-full space-y-6">
     <img
-      src="../src/assets/spotify.png"
+      src="/spotify.png"
       alt="Music Lounge Logo"
       className="size-16 animate-bounce rounded-full"
     />

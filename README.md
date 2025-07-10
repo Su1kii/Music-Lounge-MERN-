@@ -61,7 +61,7 @@ Music Lounge is a modern, full-stack music streaming platform inspired by Spotif
 
 ## 📸 Screenshots
 
-> _You can add screenshots here using:_
+![Screenshot of the Music Lounge app](screenshot.png)
 
 ---
 

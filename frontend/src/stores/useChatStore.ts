@@ -1,7 +1,7 @@
 import { axiosInstance } from "@/lib/axios";
+import { type Message, type User } from "@/types";
 import { create } from "zustand";
 import { io } from "socket.io-client";
-import type { Message, User } from "@/types";
 
 interface ChatStore {
   users: User[];
@@ -26,7 +26,7 @@ const baseURL =
   import.meta.env.MODE === "development" ? "http://localhost:5000" : "/";
 
 const socket = io(baseURL, {
-  autoConnect: false,
+  autoConnect: false, // only connect if user is authenticated
   withCredentials: true,
 });
 
@@ -49,7 +49,7 @@ export const useChatStore = create<ChatStore>((set, get) => ({
       const response = await axiosInstance.get("/users");
       set({ users: response.data });
     } catch (error: any) {
-      set({ error: error.response?.data?.message || "Failed to fetch users" });
+      set({ error: error.response.data.message });
     } finally {
       set({ isLoading: false });
     }
@@ -91,12 +91,8 @@ export const useChatStore = create<ChatStore>((set, get) => ({
       });
 
       socket.on("message_sent", (message: Message) => {
-        // No need to push again if already optimistic, but keep this if backend modifies message (adds _id, timestamp)
         set((state) => ({
-          messages: [
-            ...state.messages.filter((m) => m._id !== message._id),
-            message,
-          ],
+          messages: [...state.messages, message],
         }));
       });
 
@@ -119,16 +115,11 @@ export const useChatStore = create<ChatStore>((set, get) => ({
     }
   },
 
-  sendMessage: (receiverId, senderId, content) => {
+  sendMessage: async (receiverId, senderId, content) => {
     const socket = get().socket;
     if (!socket) return;
 
-    // ✅ Send to backend
-    socket.emit("send_message", {
-      senderId,
-      receiverId,
-      content,
-    });
+    socket.emit("send_message", { receiverId, senderId, content });
   },
 
   fetchMessages: async (userId: string) => {
@@ -137,9 +128,7 @@ export const useChatStore = create<ChatStore>((set, get) => ({
       const response = await axiosInstance.get(`/users/messages/${userId}`);
       set({ messages: response.data });
     } catch (error: any) {
-      set({
-        error: error.response?.data?.message || "Failed to fetch messages",
-      });
+      set({ error: error.response.data.message });
     } finally {
       set({ isLoading: false });
     }

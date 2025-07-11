@@ -102,22 +102,6 @@ CLOUDINARY_API_KEY=your_api_key
 CLOUDINARY_API_SECRET=your_api_secret
 PORT=5000
 ```
-⚙️ Folder Structure 
-
-music-lounge/
-├── backend/
-│   ├── models/
-│   ├── controllers/
-│   ├── routes/
-│   ├── middleware/
-│   └── index.js
-├── frontend/
-│   ├── components/
-│   ├── pages/
-│   ├── stores/
-│   ├── lib/
-│   └── main.tsx
-
 🙌 Acknowledgements
 ShadCN UI
 Socket.IO

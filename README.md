@@ -1,5 +1,9 @@
 # 🎵 Music Lounge – A Full-Stack Spotify Clone
 
+## 📸 Screenshots
+
+![Screenshot of the Music Lounge app](MusicL.png)
+
 Music Lounge is a modern, full-stack music streaming platform inspired by Spotify. Built with the MERN stack, real-time messaging via Socket.IO, and styled beautifully with **ShadCN UI**, this app provides a smooth and interactive user experience.
 
 ---
@@ -56,12 +60,6 @@ Music Lounge is a modern, full-stack music streaming platform inspired by Spotif
 - Add/delete songs and albums
 - View user stats (total songs, users, albums, artists)
 - Dashboard analytics 
-
----
-
-## 📸 Screenshots
-
-![Screenshot of the Music Lounge app](MusicL.png)
 
 ---
 
